@@ -1,0 +1,12 @@
+{
+  "name": "201026-Node-API-1",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
