@@ -62,9 +62,9 @@ server.put('/users/:id', (req, res) => {
         const index = users.findIndex(user => user.id === id)
         if(index !== -1 && name && bio) {
             users[index] = { id, name, bio }
-            res.status(200).json({ message: 'User has been update', data: users })
+            res.status(200).json({ message: 'User updated', data: users })
         } else if (index === -1) {
-            res.status(404).json({ message: `Could not find user with id ${id}` })
+            res.status(404).json({ message: `Could not find user with ID: ${id}` })
         } else if (!name || !bio) {
             res.status(400).json({ message: 'Request must include a name and a bio'})
         }
@@ -74,6 +74,20 @@ server.put('/users/:id', (req, res) => {
 })
 
 // [ DELETE ] endpoints
+server.delete('/users/:id' , (req, res) => {
+    try {
+        const { id } = req.params
+        const userToDelete = users.find(user => user.id === id)
+        if(!userToDelete) {
+            res.status(404).json({ message: `Could not find user with ID: ${id}`})
+        } else {
+            users = users.filter(user => user.id !== id)
+            res.status(200).json({ message: 'User deleted', data: users })
+        }
+    } catch(error) {
+        res.status(500).json({ message: 'Failure deleting user', error })
+    }
+})
 
 // [ CATCH ] endpoint
 server.all('*', (req, res) => {
